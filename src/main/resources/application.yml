@@ -17,3 +17,14 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
         show_sql: true
+
+  data:
+    redis:
+      cluster:
+        nodes:
+          - redis-node-1:6379
+          - redis-node-2:6379
+          - redis-node-3:6379
+          - redis-node-4:6379
+          - redis-node-5:6379
+          - redis-node-6:6379

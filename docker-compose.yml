@@ -9,6 +9,7 @@ services:
       - "6379:6379"
     volumes:
       - ./redis-node/redis-node-1:/data
+      - ./redis-node/redis-node-1/redis.conf:/usr/local/etc/redis/redis.conf
 
   redis-node-2:
     image: redis:6.2
@@ -18,6 +19,7 @@ services:
       - "6380:6379"
     volumes:
       - ./redis-node/redis-node-2:/data
+      - ./redis-node/redis-node-2/redis.conf:/usr/local/etc/redis/redis.conf
 
   redis-node-3:
     image: redis:6.2
@@ -27,6 +29,7 @@ services:
       - "6381:6379"
     volumes:
       - ./redis-node/redis-node-3:/data
+      - ./redis-node/redis-node-3/redis.conf:/usr/local/etc/redis/redis.conf
 
   redis-node-4:
     image: redis:6.2
@@ -36,6 +39,7 @@ services:
       - "6382:6379"
     volumes:
       - ./redis-node/redis-node-4:/data
+      - ./redis-node/redis-node-4/redis.conf:/usr/local/etc/redis/redis.conf
 
   redis-node-5:
     image: redis:6.2
@@ -45,6 +49,7 @@ services:
       - "6383:6379"
     volumes:
       - ./redis-node/redis-node-5:/data
+      - ./redis-node/redis-node-5/redis.conf:/usr/local/etc/redis/redis.conf
 
   redis-node-6:
     image: redis:6.2
@@ -54,3 +59,4 @@ services:
       - "6384:6379"
     volumes:
       - ./redis-node/redis-node-6:/data
+      - ./redis-node/redis-node-6/redis.conf:/usr/local/etc/redis/redis.conf
