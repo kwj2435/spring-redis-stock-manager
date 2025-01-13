@@ -10,6 +10,8 @@ services:
     volumes:
       - ./redis-node/redis-node-1:/data
       - ./redis-node/redis-node-1/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - redis-clusters
 
   redis-node-2:
     image: redis:6.2
@@ -20,6 +22,8 @@ services:
     volumes:
       - ./redis-node/redis-node-2:/data
       - ./redis-node/redis-node-2/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - redis-clusters
 
   redis-node-3:
     image: redis:6.2
@@ -30,6 +34,8 @@ services:
     volumes:
       - ./redis-node/redis-node-3:/data
       - ./redis-node/redis-node-3/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - redis-clusters
 
   redis-node-4:
     image: redis:6.2
@@ -40,6 +46,8 @@ services:
     volumes:
       - ./redis-node/redis-node-4:/data
       - ./redis-node/redis-node-4/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - redis-clusters
 
   redis-node-5:
     image: redis:6.2
@@ -50,6 +58,8 @@ services:
     volumes:
       - ./redis-node/redis-node-5:/data
       - ./redis-node/redis-node-5/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - redis-clusters
 
   redis-node-6:
     image: redis:6.2
@@ -60,3 +70,9 @@ services:
     volumes:
       - ./redis-node/redis-node-6:/data
       - ./redis-node/redis-node-6/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - redis-clusters
+
+networks:
+  redis-clusters:
+    driver: bridge
