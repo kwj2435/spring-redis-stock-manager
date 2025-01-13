@@ -13,6 +13,7 @@ NODE_NAMES=(
 # Redis 노드 IP와 포트 동적 구성
 NODES=()
 for NODE in "${NODE_NAMES[@]}"; do
+  # Docker 네트워크에서 IP를 가져옵니다.
   IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$NODE")
   if [ -n "$IP" ]; then
     NODES+=("${IP}:6379")
