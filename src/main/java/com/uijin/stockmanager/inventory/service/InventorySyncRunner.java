@@ -21,8 +21,12 @@ public class InventorySyncRunner implements CommandLineRunner {
   public void run(String... args) throws Exception {
     List<InventoryEntity> inventories = inventoryEntityRepository.findAll();
     for (InventoryEntity inventory : inventories) {
-      Inventory inventoryDTO = Inventory.from(inventory);
-      redisTemplate.opsForHash().put("inventory:details", inventory.getInventoryId(), inventoryDTO);
+      try {
+        Inventory inventoryDTO = Inventory.from(inventory);
+        redisTemplate.opsForHash().put("inventory:details", inventory.getInventoryId(), inventoryDTO);
+      } catch (Exception e) {
+        System.out.println(e);
+      }
     }
   }
 }

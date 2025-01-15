@@ -7,9 +7,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Getter
-public class Inventory implements Serializable {
-  @Serial
-  private static final long serialVersionUID = 1L;
+public class Inventory{
 
   /** 상품 명 */
   private String productName;
