@@ -1,4 +1,4 @@
-package com.uijin.stockmanager.redis.config;
+package com.uijin.stockmanager.external.redis.config;
 
 import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
