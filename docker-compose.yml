@@ -1,78 +1,68 @@
 version: '3.8'
-
 services:
-  redis-node-1:
-    image: redis:6.2
-    container_name: redis-node-1
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-enabled", "yes", "--cluster-config-file", "nodes.conf", "--cluster-node-timeout", "5000", "--appendonly", "yes"]
-    ports:
-      - "6379:6379"
+  node1:
+    container_name: node1
+    image: redis
     volumes:
-      - ./redis-node/redis-node-1:/data
-      - ./redis-node/redis-node-1/redis.conf:/usr/local/etc/redis/redis.conf
-    networks:
-      - redis-clusters
-
-  redis-node-2:
-    image: redis:6.2
-    container_name: redis-node-2
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-enabled", "yes", "--cluster-config-file", "nodes.conf", "--cluster-node-timeout", "5000", "--appendonly", "yes"]
+      - ./redis-node/conf1/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
     ports:
-      - "6380:6379"
-    volumes:
-      - ./redis-node/redis-node-2:/data
-      - ./redis-node/redis-node-2/redis.conf:/usr/local/etc/redis/redis.conf
-    networks:
-      - redis-clusters
+      - 7001:7001
+      - 7002:7002
+      - 7003:7003
+      - 7004:7004
+      - 7005:7005
+      - 7006:7006
 
-  redis-node-3:
-    image: redis:6.2
-    container_name: redis-node-3
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-enabled", "yes", "--cluster-config-file", "nodes.conf", "--cluster-node-timeout", "5000", "--appendonly", "yes"]
-    ports:
-      - "6381:6379"
+  node2:
+    network_mode: "service:node1"
+    container_name: node2
+    image: redis
     volumes:
-      - ./redis-node/redis-node-3:/data
-      - ./redis-node/redis-node-3/redis.conf:/usr/local/etc/redis/redis.conf
-    networks:
-      - redis-clusters
+      - ./redis-node/conf2/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
 
-  redis-node-4:
-    image: redis:6.2
-    container_name: redis-node-4
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-enabled", "yes", "--cluster-config-file", "nodes.conf", "--cluster-node-timeout", "5000", "--appendonly", "yes"]
-    ports:
-      - "6382:6379"
+  node3:
+    network_mode: "service:node1"
+    container_name: node3
+    image: redis
     volumes:
-      - ./redis-node/redis-node-4:/data
-      - ./redis-node/redis-node-4/redis.conf:/usr/local/etc/redis/redis.conf
-    networks:
-      - redis-clusters
+      - ./redis-node/conf3/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
 
-  redis-node-5:
-    image: redis:6.2
-    container_name: redis-node-5
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-enabled", "yes", "--cluster-config-file", "nodes.conf", "--cluster-node-timeout", "5000", "--appendonly", "yes"]
-    ports:
-      - "6383:6379"
+  node4:
+    network_mode: "service:node1"
+    container_name: node4
+    image: redis
     volumes:
-      - ./redis-node/redis-node-5:/data
-      - ./redis-node/redis-node-5/redis.conf:/usr/local/etc/redis/redis.conf
-    networks:
-      - redis-clusters
+      - ./redis-node/conf4/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
 
-  redis-node-6:
-    image: redis:6.2
-    container_name: redis-node-6
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--cluster-enabled", "yes", "--cluster-config-file", "nodes.conf", "--cluster-node-timeout", "5000", "--appendonly", "yes"]
-    ports:
-      - "6384:6379"
+  node5:
+    network_mode: "service:node1"
+    container_name: node5
+    image: redis
     volumes:
-      - ./redis-node/redis-node-6:/data
-      - ./redis-node/redis-node-6/redis.conf:/usr/local/etc/redis/redis.conf
-    networks:
-      - redis-clusters
+      - ./redis-node/conf5/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
 
-networks:
-  redis-clusters:
-    driver: bridge
+  node6:
+    network_mode: "service:node1"
+    container_name: node6
+    image: redis
+    volumes:
+      - ./redis-node/conf6/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  redis-cluster-entry:
+    network_mode: "service:node1"
+    image: redis
+    container_name: redis-cluster
+    command: redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1 --cluster-yes
+    depends_on:
+      - node1
+      - node2
+      - node3
+      - node4
+      - node5
+      - node6
