@@ -1,4 +1,4 @@
-package com.uijin.stockmanager.redis.controller;
+package com.uijin.stockmanager.external.redis.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
