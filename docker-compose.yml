@@ -1,0 +1,68 @@
+version: '3.8'
+services:
+  node1:
+    container_name: node1
+    image: redis:7.0-alpine
+    volumes:
+      - ./redis-node/conf1/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 7001:7001
+      - 7002:7002
+      - 7003:7003
+      - 7004:7004
+      - 7005:7005
+      - 7006:7006
+
+  node2:
+    network_mode: "service:node1"
+    container_name: node2
+    image: redis:7.0-alpine
+    volumes:
+      - ./redis-node/conf2/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  node3:
+    network_mode: "service:node1"
+    container_name: node3
+    image: redis:7.0-alpine
+    volumes:
+      - ./redis-node/conf3/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  node4:
+    network_mode: "service:node1"
+    container_name: node4
+    image: redis:7.0-alpine
+    volumes:
+      - ./redis-node/conf4/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  node5:
+    network_mode: "service:node1"
+    container_name: node5
+    image: redis:7.0-alpine
+    volumes:
+      - ./redis-node/conf5/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  node6:
+    network_mode: "service:node1"
+    container_name: node6
+    image: redis:7.0-alpine
+    volumes:
+      - ./redis-node/conf6/:/usr/local/etc/redis/
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  redis-cluster-entry:
+    network_mode: "service:node1"
+    image: redis:7.0-alpine
+    container_name: redis-cluster
+    command: redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1 --cluster-yes
+    depends_on:
+      - node1
+      - node2
+      - node3
+      - node4
+      - node5
+      - node6
