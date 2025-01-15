@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 //    implementation 'org.redisson:redisson-spring-boot-starter:3.22.1'
+    implementation 'org.springframework.kafka:spring-kafka'
     implementation 'com.h2database:h2:2.2.224'
 
     compileOnly 'org.projectlombok:lombok'
