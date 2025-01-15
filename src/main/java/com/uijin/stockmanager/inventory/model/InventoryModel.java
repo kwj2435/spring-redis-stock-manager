@@ -1,13 +1,16 @@
 package com.uijin.stockmanager.inventory.model;
 
 import com.uijin.stockmanager.inventory.entity.InventoryEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 public class InventoryModel{
 
   @Getter
+  @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class Inventory {
     /** 상품 명 */
     private String productName;

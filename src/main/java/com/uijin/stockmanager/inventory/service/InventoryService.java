@@ -5,6 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
+
+import static com.uijin.stockmanager.external.redis.constant.RedisKeyConstant.INVENTORY_DETAILS_KEY;
+
 @Service
 @RequiredArgsConstructor
 public class InventoryService {
@@ -13,7 +17,11 @@ public class InventoryService {
 
   public InventoryModel.InventoryResponse getInventory(long inventoryId) {
     InventoryModel.Inventory inventory =
-            (InventoryModel.Inventory) redisTemplate.opsForHash().get("inventory:details", inventoryId);
+            (InventoryModel.Inventory) redisTemplate.opsForHash().get(INVENTORY_DETAILS_KEY, String.valueOf(inventoryId));
+
+    if(inventory == null) {
+      throw new InvalidParameterException();
+    }
 
     return InventoryModel.InventoryResponse.of(inventoryId, inventory);
   }

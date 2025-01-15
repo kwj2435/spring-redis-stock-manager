@@ -15,6 +15,9 @@ public class InventoryController {
 
   private final InventoryService inventoryService;
 
+  /**
+   * 재고 조회 API
+   */
   @GetMapping("/{inventoryId}")
   public InventoryModel.InventoryResponse getInventory(@PathVariable("inventoryId") long inventoryId) {
     return inventoryService.getInventory(inventoryId);
