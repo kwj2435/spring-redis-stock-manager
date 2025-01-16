@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 spring:
   datasource:
     url: jdbc:h2:mem:stock
@@ -7,6 +10,8 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+  #jpa 설정
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
@@ -17,7 +22,8 @@ spring:
         format_sql: true
         show_sql: true
     defer-datasource-initialization: true
-# redis 설정
+
+  # redis 설정
   data:
     redis:
       cluster:
