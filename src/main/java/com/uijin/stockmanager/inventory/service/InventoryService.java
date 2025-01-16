@@ -17,7 +17,8 @@ public class InventoryService {
 
   public InventoryModel.InventoryResponse getInventory(long inventoryId) {
     InventoryModel.Inventory inventory =
-            (InventoryModel.Inventory) redisTemplate.opsForHash().get(INVENTORY_DETAILS_KEY, String.valueOf(inventoryId));
+            (InventoryModel.Inventory) redisTemplate.opsForHash()
+                    .get(INVENTORY_DETAILS_KEY, String.valueOf(inventoryId));
 
     if(inventory == null) {
       throw new InvalidParameterException();
