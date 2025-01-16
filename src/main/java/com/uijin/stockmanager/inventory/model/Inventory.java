@@ -5,15 +5,17 @@ import lombok.Getter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class Inventory{
   /** 상품 ID */
-  private final long inventoryId;
+  private long inventoryId;
   /** 상품 명 */
-  private final String productName;
+  private String productName;
   /** 상품 수량 */
-  private final int stockQuantity;
+  private int stockQuantity;
 
   private Inventory(long inventoryId, String productName, int stockQuantity) {
     this.inventoryId = inventoryId;

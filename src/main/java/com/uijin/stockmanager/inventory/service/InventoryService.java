@@ -32,16 +32,14 @@ public class InventoryService {
 
   public InventoryModel.InventoryResponse decreaseInventoryStock(long inventoryId) {
     InventoryModel.Inventory inventory = getInventoryFromRedis(inventoryId);
-
-    if(inventory.getStockQuantity() == 0) {
-      throw ApiException.from(ApiExceptionCode.ERR_409_10001);
-    }
+    inventory.decreaseStock(1);
 
     redisTemplate.opsForHash().put(
             INVENTORY_DETAILS_KEY,
             String.valueOf(inventoryId),
-            inventory.getStockQuantity() - 1
+            inventory
     );
+
     InventoryModel.InventoryResponse response =
             InventoryModel.InventoryResponse.of(inventoryId, inventory);
 

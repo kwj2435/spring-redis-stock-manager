@@ -1,5 +1,7 @@
 package com.uijin.stockmanager.inventory.model;
 
+import com.uijin.stockmanager.common.enums.ApiExceptionCode;
+import com.uijin.stockmanager.common.model.ApiException;
 import com.uijin.stockmanager.inventory.entity.InventoryEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -25,6 +27,13 @@ public class InventoryModel{
 
     public static Inventory from(InventoryEntity inventory) {
       return new Inventory(inventory.getProductName(), inventory.getStockQuantity());
+    }
+
+    public void decreaseStock(int amount) {
+      if(this.stockQuantity < amount) {
+        throw ApiException.from(ApiExceptionCode.ERR_409_10001);
+      }
+      this.stockQuantity = this.stockQuantity - amount;
     }
   }
 
