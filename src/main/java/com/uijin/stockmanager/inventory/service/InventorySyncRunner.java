@@ -1,7 +1,7 @@
 package com.uijin.stockmanager.inventory.service;
 
 import com.uijin.stockmanager.inventory.entity.InventoryEntity;
-import com.uijin.stockmanager.inventory.model.Inventory;
+import com.uijin.stockmanager.inventory.model.InventoryModel;
 import com.uijin.stockmanager.inventory.repository.InventoryEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +21,7 @@ public class InventorySyncRunner implements CommandLineRunner {
   public void run(String... args) throws Exception {
     List<InventoryEntity> inventories = inventoryEntityRepository.findAll();
     for (InventoryEntity inventory : inventories) {
-        Inventory inventoryDTO = Inventory.from(inventory);
+        InventoryModel.Inventory inventoryDTO = InventoryModel.Inventory.from(inventory);
         redisTemplate.opsForHash().put("inventory:details", String.valueOf(inventory.getInventoryId()), inventoryDTO);
     }
   }
