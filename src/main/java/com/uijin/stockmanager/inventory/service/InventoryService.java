@@ -1,5 +1,7 @@
 package com.uijin.stockmanager.inventory.service;
 
+import com.uijin.stockmanager.common.enums.ApiExceptionCode;
+import com.uijin.stockmanager.common.model.ApiException;
 import com.uijin.stockmanager.inventory.model.InventoryModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,7 +23,7 @@ public class InventoryService {
                     .get(INVENTORY_DETAILS_KEY, String.valueOf(inventoryId));
 
     if(inventory == null) {
-      throw new InvalidParameterException();
+      throw ApiException.from(ApiExceptionCode.ERR_400_10001);
     }
 
     return InventoryModel.InventoryResponse.of(inventoryId, inventory);
