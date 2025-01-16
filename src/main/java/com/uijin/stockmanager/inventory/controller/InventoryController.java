@@ -1,5 +1,6 @@
 package com.uijin.stockmanager.inventory.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uijin.stockmanager.inventory.model.InventoryModel;
 import com.uijin.stockmanager.inventory.service.InventoryService;
 import lombok.RequiredArgsConstructor;
