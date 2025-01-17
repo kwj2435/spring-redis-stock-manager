@@ -21,4 +21,10 @@ public class InventoryEntity {
 
   @Column(name = "LAST_UPDATED")
   private LocalDateTime lastUpdated;
+
+  public InventoryEntity updateStockQuantity(int stockQuantity) {
+    this.stockQuantity = stockQuantity;
+    this.lastUpdated = LocalDateTime.now();
+    return this;
+  }
 }
