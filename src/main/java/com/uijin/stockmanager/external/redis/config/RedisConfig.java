@@ -1,6 +1,9 @@
 package com.uijin.stockmanager.external.redis.config;
 
 import java.util.Arrays;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
@@ -41,5 +44,22 @@ public class RedisConfig {
         new RedisNode("127.0.0.1", 7006)
     ));
     return clusterConfig;
+  }
+
+  @Bean
+  public RedissonClient redissonClient() {
+    Config config = new Config();
+    config.useClusterServers()
+        .addNodeAddress(
+            "redis://127.0.0.1:7001",
+            "redis://127.0.0.1:7002",
+            "redis://127.0.0.1:7003",
+            "redis://127.0.0.1:7004",
+            "redis://127.0.0.1:7005",
+            "redis://127.0.0.1:7006"
+        )
+        .setMasterConnectionPoolSize(64)
+        .setSlaveConnectionPoolSize(64);
+    return Redisson.create(config);
   }
 }
